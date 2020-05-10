@@ -13,6 +13,9 @@ typedef enum { false, true } bool;
 
 
 
+void bell(void){
+	printf("\a");
+}
 
 // ispis strelice u meniju
 void strelica(int x, int y){
@@ -36,13 +39,12 @@ int meniDrzava(void){
 		strelica(1, y);		printf("Srbija\n");
 		strelica(2, y);		printf("Italija\n");
 		strelica(3, y);		printf("Francuska\n");
-		strelica(4, y);		printf("Amerika\n\n");
-		strelica(5, y);		printf("Izlaz\n");
+		strelica(4, y);		printf("Izlaz\n");
 
 
 		taster = getch();
 
-		if (taster == arrow_DOWN && y != 5)
+		if (taster == arrow_DOWN && y != 4)
 			y++;
 
 		else if (taster == arrow_UP && y != 1)
@@ -51,6 +53,7 @@ int meniDrzava(void){
 	} while (taster != ENTER);
 
 	return y;
+	
 }
 
 
@@ -82,6 +85,7 @@ int meniOpcija(void){
 	} while (taster != ENTER);
 
 	return y;
+	
 }
 
 
@@ -134,8 +138,8 @@ void main(){
 		uI, uS, uF, uA,
 		zI, zS, zF, zA;
 
-	static int umrli[4], zarazeni[4];
-	int stanovnici[4] = {9024734, 60317116, 67076000, 328200000};
+	static int umrli[3], zarazeni[3];
+	int stanovnici[] = {9024734, 60317116, 67076000};
 
 	long s;
 	float p, k;
@@ -149,7 +153,7 @@ void main(){
 	// otvaranje fajla sa informacijama
 	infos = fopen("info.txt", "r");
 
-			for (j = 0; j < 4; j++){
+			for (j = 0; j < 3; j++){
 
 				fscanf(infos, "%d %d\n", &zarazeni[j], &umrli[j]);
 			}
@@ -163,8 +167,9 @@ void main(){
 
 		kraj = false;
 		D = meniDrzava();
-
-		if (D == 5)
+		bell();
+		
+		if (D == 4)
 			break;
 
 		if (D >= 6)
@@ -182,7 +187,9 @@ void main(){
 		do{
 
 			i = meniOpcija();
-
+			bell();
+			
+			
 			switch (i){
 
 			case 1:
@@ -195,6 +202,7 @@ void main(){
 
 			case 3:
 				kraj = true;
+				bell();
 				break;
 
 			default:
